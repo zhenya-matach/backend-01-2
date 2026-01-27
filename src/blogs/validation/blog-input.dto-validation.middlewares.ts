@@ -24,5 +24,5 @@ const websiteUrlValidation = body('websiteUrl')
 export const blogInputDtoValidation = [
     nameValidation,
     descriptionValidation,
-    websiteUrlValidation
+    websiteUrlValidation,
 ]
