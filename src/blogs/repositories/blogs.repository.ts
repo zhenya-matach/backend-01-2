@@ -1,52 +1,44 @@
-import { Driver } from '../types/driver';
-import { db } from '../../db/in-memory.db';
-import { DriverInputDto } from '../dto/driver.input-dto';
+import {db} from '../../db/db';
 import {Blog} from "../types/blog";
+import {blogInputDto} from '../dto/blog-input.dto';
 
 
 export const blogsRepository = {
-  findAll(): Blog[] {
-    return db.blogs;
-  },
+    findAll(): Blog[] {
+        return db.blogs;
+    },
 
-  findById(id: string): Blog | null {
-    return db.blogs.find((b) => b.id === id) ?? null; // Если результат поиска равно null или undefined, то вернем null.
-  },
+    findById(id: string): Blog | null {
+        return db.blogs.find((b) => b.id === id) ?? null; // Если результат поиска равно null или undefined, то вернем null.
+    },
 
-  create(newBlog: Blog): Blog {
-    db.blogs.push(newBlog);
+    create(newBlog: Blog): Blog {
+        db.blogs.push(newBlog);
+        return newBlog;
+    },
 
-    return newBlog;
-  },
+    update(id: string, dto: blogInputDto): void {
+        const blog = db.blogs.find((b) => b.id === id);
 
-  update(id: number, dto: DriverInputDto): void {
-    const driver = db.drivers.find((d) => d.id === id);
+        if (!blog) {
+            throw new Error('Blog not exist');
+        }
 
-    if (!driver) {
-      throw new Error('Driver not exist');
-    }
+        blog.name = dto.name;
+        blog.description = dto.description;
+        blog.websiteUrl = dto.websiteUrl;
 
-    driver.name = dto.name;
-    driver.phoneNumber = dto.phoneNumber;
-    driver.email = dto.email;
-    driver.vehicleMake = dto.vehicleMake;
-    driver.vehicleModel = dto.vehicleModel;
-    driver.vehicleYear = dto.vehicleYear;
-    driver.vehicleLicensePlate = dto.vehicleLicensePlate;
-    driver.vehicleDescription = dto.vehicleDescription;
-    driver.vehicleFeatures = dto.vehicleFeatures;
+        return;
+    },
 
-    return;
-  },
+    delete(id: string): void {
+        const index = db.blogs.findIndex((b) => b.id === id);
 
-  delete(id: number): void {
-    const index = db.drivers.findIndex((v) => v.id === id);
+        if (index === -1) {
+            throw new Error('Blog not exist');
+        }
 
-    if (index === -1) {
-      throw new Error('Driver not exist');
-    }
-
-    db.drivers.splice(index, 1);
-    return;
-  },
+        db.blogs.splice(index, 1);
+        return;
+    },
 };
