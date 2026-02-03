@@ -8,14 +8,14 @@ import {
 import {blogInputDtoValidation} from "../validation/blog-input.dto-validation.middlewares";
 import {Blog} from "../types/blog";
 import {idValidation} from "../../core/middlewares/validation/params-id.validation-middleware";
+import {getBlogListHandler} from "./handlers/get-blog-list.handler";
 
 
 export const blogsRouter = Router();
 
 blogsRouter
-    .get('', (req: Request, res: Response) => {
-        res.status(HttpStatus.Ok_200).send(db.blogs);
-    })
+    .get('', getBlogListHandler)
+        res.status(HttpStatus.Ok_200).send(db.blogs)
 
     .get('/:id', idValidation, inputValidationResultMiddleware, (req: Request, res: Response) => {
         const id = req.params.id;
