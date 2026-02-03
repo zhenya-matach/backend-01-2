@@ -1,15 +1,7 @@
 import {FieldValidationError, ValidationError, validationResult} from "express-validator";
 import {HttpStatus} from "../../types/httpStatutes";
-import {Request, Response, NextFunction} from "express";
+import {NextFunction, Request, Response} from "express";
 import {ValidationErrorType} from "../../types/validationErrorType";
-import {ValidationErrorDto} from "../../types/validationError.dto";
-
-
-export const createErrorMessages = (
-    errors: ValidationErrorType[],
-): ValidationErrorDto => {
-    return {errorMessages: errors};
-};
 
 const formatErrors = (error: ValidationError): ValidationErrorType => {
     const expressError = error as unknown as FieldValidationError;

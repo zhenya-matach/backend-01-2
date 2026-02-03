@@ -1,7 +1,6 @@
 import {Request, Response, Router} from "express";
 import {HttpStatus} from "../../core/types/httpStatutes";
-import {db} from "../../db/inMemory.db";
-
+import {db} from "../../db/db";
 
 export const testingRouter = Router();
 

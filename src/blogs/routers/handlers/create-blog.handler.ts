@@ -4,7 +4,6 @@ import {db} from '../../../db/db';
 import {HttpStatus} from '../../../core/types/httpStatutes';
 import {blogsRepository} from '../../repositories/blogs.repository';
 
-
 export function createBlogHandler(req: Request, res: Response) {
     const newBlog: Blog = {
         id: db.blogs.length ? (db.blogs[db.blogs.length - 1].id + 1).toString() : '1',
