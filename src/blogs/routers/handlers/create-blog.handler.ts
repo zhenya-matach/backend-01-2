@@ -6,7 +6,7 @@ import {blogsRepository} from '../../repositories/blogs.repository';
 
 export function createBlogHandler(req: Request, res: Response) {
     const newBlog: Blog = {
-        id: db.blogs.length ? (db.blogs[db.blogs.length - 1].id + 1).toString() : '1',
+        id: db.blogs.length ? (parseInt(db.blogs[db.blogs.length - 1].id) + 1).toString() : '1',
         name: req.body.name,
         description: req.body.description,
         websiteUrl: req.body.websiteUrl
