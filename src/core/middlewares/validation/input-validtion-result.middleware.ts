@@ -7,8 +7,8 @@ const formatErrors = (error: ValidationError): ValidationErrorType => {
     const expressError = error as unknown as FieldValidationError;
 
     return {
-        field: expressError.path,
         message: expressError.msg,
+        field: expressError.path,
     };
 };
 
@@ -22,7 +22,7 @@ export const inputValidationResultMiddleware = (
         .array({onlyFirstError: true});
 
     if (errors.length > 0) {
-        res.status(HttpStatus.BadRequest_400).json({errorMessages: errors});
+        res.status(HttpStatus.BadRequest_400).json({errorsMessages: errors});
         return;
     }
 
