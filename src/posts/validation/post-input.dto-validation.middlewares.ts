@@ -28,7 +28,7 @@ const blogIdValidation = body('blogId')
     .withMessage('blogId should be a numeric string');
 
 export const postInputDtoValidation = [
-    titleValidation.trim,
+    titleValidation,
     shortDescriptionValidation,
     contentValidation,
     blogIdValidation
