@@ -8,11 +8,11 @@ import {Post} from '../../types/post';
 
 export function createPostHandler(req: Request, res: Response) {
 
-    const blogId = req.params.blogId;
+    const blogId = req.params.blogId.toString();
     const blog = blogsRepository.findById(blogId);
 
     if (!blog) {
-        res
+        return res
             .status(HttpStatus.NotFound_404)
             .send(
                 createErrorMessages([{field: 'ID', message: 'Blog not found'}]),
