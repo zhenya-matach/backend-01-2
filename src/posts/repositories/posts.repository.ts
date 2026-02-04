@@ -1,8 +1,6 @@
 import {db} from '../../db/db';
 import {Post} from '../types/post';
 import {postInputDto} from '../dto/post-input.dto';
-import {Blog} from '../../blogs/types/blog';
-
 
 export const postsRepository = {
     findAll(): Post[] {
