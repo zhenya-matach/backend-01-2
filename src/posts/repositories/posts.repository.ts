@@ -1,6 +1,7 @@
 import {db} from '../../db/db';
 import {Post} from '../types/post';
 import {postInputDto} from '../dto/post-input.dto';
+import {Blog} from '../../blogs/types/blog';
 
 
 export const postsRepository = {
@@ -19,15 +20,20 @@ export const postsRepository = {
 
     update(id: string, dto: postInputDto): void {
         const post = db.posts.find((p) => p.id === id);
-
         if (!post) {
             throw new Error(`Post not exist`);
+        }
+
+        const blog = db.blogs.find((b) => b.id === dto.blogId);
+        if (!blog) {
+            throw new Error(`Blog not exist`);
         }
 
         post.title = dto.title;
         post.shortDescription = dto.shortDescription;
         post.content = dto.content;
         post.blogId = dto.blogId;
+        post.blogName = blog.name;
 
         return;
     },

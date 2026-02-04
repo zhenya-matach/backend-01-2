@@ -8,7 +8,7 @@ import {Post} from '../../types/post';
 
 export function createPostHandler(req: Request, res: Response) {
 
-    const blogId = req.params.blogId.toString();
+    const blogId = req.body.blogId.toString();
     const blog = blogsRepository.findById(blogId);
 
     if (!blog) {
