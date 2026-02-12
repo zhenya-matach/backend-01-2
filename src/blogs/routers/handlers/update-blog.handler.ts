@@ -1,25 +1,20 @@
 import {Request, Response} from 'express';
 import {HttpStatus} from '../../../core/types/httpStatutes';
 import {blogsRepository} from '../../repositories/blogs.repository';
-import {createErrorMessages} from '../../../core/utils/error.utils';
+import {blogInputDto} from '../../dto/blog-input.dto';
 
-export function updateBlogHandler(req: Request, res: Response) {
-    const id = req.params.id.toString();
+export function updateBlogHandler(req: Request<{id:string},{},blogInputDto>,
+                                  res: Response) {
+    const id = req.params.id;
     const blog = blogsRepository.findById(id);
 
     if (!blog) {
-        res
-            .status(HttpStatus.NotFound_404)
-            .send(
-                createErrorMessages([{field: 'ID', message: 'Blog not found'}]),
-            );
+        res.sendStatus(HttpStatus.NotFound_404)
         return;
     }
 
     blogsRepository.update(id, req.body);
     res.sendStatus(HttpStatus.NoContent_204);
-
-
 
 
     // const index = db.blogs.findIndex((b) => b.id === req.params.id)

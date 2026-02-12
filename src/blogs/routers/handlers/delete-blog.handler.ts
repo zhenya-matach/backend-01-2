@@ -1,18 +1,14 @@
 import {Request, Response} from 'express';
 import {blogsRepository} from '../../repositories/blogs.repository';
 import {HttpStatus} from '../../../core/types/httpStatutes';
-import {createErrorMessages} from '../../../core/utils/error.utils';
 
-export function deleteBlogHandler(req: Request, res: Response) {
-    const id = req.params.id.toString();
+export function deleteBlogHandler(req: Request<{id:string}>,
+                                  res: Response) {
+    const id = req.params.id;
     const blog = blogsRepository.findById(id);
 
     if (!blog) {
-        res
-            .status(HttpStatus.NotFound_404)
-            .send(
-                createErrorMessages([{field: 'id', message: 'Blog not found'}]),
-            );
+        res.sendStatus(HttpStatus.NotFound_404)
         return;
     }
 
