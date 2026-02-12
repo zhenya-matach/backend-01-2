@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {inputValidationResultMiddleware} from "../../core/middlewares/validation/input-validtion-result.middleware";
+import {inputValidationResultMiddleware} from "../../core/middlewares/validation/input-validation-result.middleware";
 import {blogInputDtoValidation} from "../validation/blog-input.dto-validation.middlewares";
 import {idValidation} from "../../core/middlewares/validation/params-id.validation-middleware";
 import {getBlogListHandler} from "./handlers/get-blog-list.handler";
