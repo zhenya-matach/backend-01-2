@@ -5,7 +5,7 @@ import {blogsRouter} from "./blogs/routers/blogsRouter";
 import {testingRouter} from './testing/routers/testingRouter';
 import {postsRouter} from './posts/routers/postsRouter';
 
-export const setupApp = (app: Express) => {
+export const setupApp = async (app: Express) => {
     app.use(express.json()); // middleware для парсинга JSON в теле запроса
 
     // основной роут
