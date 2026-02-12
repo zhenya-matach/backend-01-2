@@ -1,18 +1,14 @@
 import {Request, Response} from 'express';
 import {HttpStatus} from '../../../core/types/httpStatutes';
-import {createErrorMessages} from '../../../core/utils/error.utils';
 import {postsRepository} from '../../repositories/posts.repository';
 
-export function deletePostHandler(req: Request, res: Response) {
-    const id = req.params.id.toString();
+export function deletePostHandler(req: Request<{id:string}>,
+                                  res: Response) {
+    const id = req.params.id;
     const post = postsRepository.findById(id);
 
     if (!post) {
-        res
-            .status(HttpStatus.NotFound_404)
-            .send(
-                createErrorMessages([{field: 'id', message: 'Post not found'}]),
-            );
+        res.sendStatus(HttpStatus.NotFound_404)
         return;
     }
 
