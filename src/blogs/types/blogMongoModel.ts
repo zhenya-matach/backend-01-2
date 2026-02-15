@@ -1,5 +1,4 @@
-export type Blog = {
-    id: string;
+export type BlogMongoModel = {
     name: string;
     description: string;
     websiteUrl: string;
