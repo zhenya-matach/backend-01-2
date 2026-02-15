@@ -1,33 +1,28 @@
 import {Request, Response} from 'express';
-import {Blog} from '../../types/blog';
-import {db} from '../../../db/db';
+import {BlogMongoModel} from '../../types/blogMongoModel';
 import {HttpStatus} from '../../../core/types/httpStatutes';
 import {blogsRepository} from '../../repositories/blogs.repository';
-import {blogInputDto} from '../../dto/blog-input.dto';
+import {BlogInputModel} from '../../types/blogInputModel';
+import {BlogOutputModel} from '../../types/blogOutputModel';
+import {mapToBlogOutputModel} from '../mappers/mapToBlogOutputModel';
 
-export function createBlogHandler(req: Request<{},{},blogInputDto>,
-                                  res: Response<Blog>) {
-    const newBlog: Blog = {
-        id: db.blogs.length ? (db.blogs[db.blogs.length - 1].id + 1).toString() : '1',
-        name: req.body.name,
-        description: req.body.description,
-        websiteUrl: req.body.websiteUrl,
-        createdAt: new Date().toISOString(),
-        isMembership: false
-    };
+export async function createBlogHandler(req: Request<{}, {}, BlogInputModel>,
+                                        res: Response<BlogOutputModel>) {
+    try {
+        const newBlog: BlogMongoModel = {
+            name: req.body.name,
+            description: req.body.description,
+            websiteUrl: req.body.websiteUrl,
+            createdAt: new Date().toISOString(),
+            isMembership: false
+        };
 
-    blogsRepository.create(newBlog);
-
-    res
-        .status(HttpStatus.Created_201)
-        .send(newBlog);
+        const createdBlog = await blogsRepository.create(newBlog);
+        const blogOutputModel = mapToBlogOutputModel(createdBlog);
+        res
+            .status(HttpStatus.Created_201)
+            .send(blogOutputModel);
+    } catch (e: unknown) {
+        res.sendStatus(HttpStatus.InternalServerError_500);
+    }
 }
-
-//  const newBlog: Blog = {
-//             id: db.blogs.length ? (db.blogs[db.blogs.length - 1].id + 1).toString() : '1',
-//             name: req.body.name,
-//             description: req.body.description,
-//             websiteUrl: req.body.websiteUrl,
-//         };
-//         db.blogs.push(newBlog);
-//         res.status(HttpStatus.Created_201).send(newBlog);

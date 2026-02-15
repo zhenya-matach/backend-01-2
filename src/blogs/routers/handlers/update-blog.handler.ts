@@ -1,19 +1,19 @@
 import {Request, Response} from 'express';
 import {HttpStatus} from '../../../core/types/httpStatutes';
 import {blogsRepository} from '../../repositories/blogs.repository';
-import {blogInputDto} from '../../dto/blog-input.dto';
+import {BlogInputModel} from '../../types/blogInputModel';
 
-export function updateBlogHandler(req: Request<{id:string},{},blogInputDto>,
+export async function updateBlogHandler(req: Request<{id:string},{},BlogInputModel>,
                                   res: Response) {
     const id = req.params.id;
-    const blog = blogsRepository.findById(id);
+    const foundBlog = blogsRepository.findById(id);
 
-    if (!blog) {
+    if (!foundBlog) {
         res.sendStatus(HttpStatus.NotFound_404)
         return;
     }
 
-    blogsRepository.update(id, req.body);
+    await blogsRepository.update(id, req.body);
     res.sendStatus(HttpStatus.NoContent_204);
 
 
