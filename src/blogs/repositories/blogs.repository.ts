@@ -1,4 +1,3 @@
-// import {db} from '../../db/db';
 import {BlogMongoModel} from "../types/blogMongoModel";
 import {BlogInputModel} from '../types/blogInputModel';
 import {blogCollection} from '../../db/mongo.db';
