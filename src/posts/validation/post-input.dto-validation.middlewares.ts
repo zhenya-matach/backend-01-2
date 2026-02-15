@@ -22,10 +22,10 @@ const contentValidation = body('content')
 const blogIdValidation = body('blogId')
     .isString()
     .withMessage('blogId should be string')
-    .trim().isLength({min: 1, max: 10})
+    .trim().isLength({min: 1, max: 30})
     .withMessage('blogId length should be from 1 to 10 symbols')
-    .isNumeric()
-    .withMessage('blogId should be a numeric string');
+    .isMongoId()
+    .withMessage('Incorrect format of ObjectId');
 
 export const postInputDtoValidation = [
     titleValidation,
