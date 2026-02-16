@@ -30,4 +30,5 @@ export async function runDB(url: string): Promise<void> {
         throw new Error(`❌ Database not connected: ${e}`);
     }
 }
+
 // const uri = "mongodb+srv://root:root@cluster0.m3ghtnl.mongodb.net/?appName=Cluster0";
