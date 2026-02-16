@@ -4,7 +4,7 @@ import {blogsRepository} from '../../repositories/blogs.repository';
 import {BlogInputModel} from '../../types/blogInputModel';
 
 export async function updateBlogHandler(req: Request<{id:string},{},BlogInputModel>,
-                                  res: Response) {
+                                        res: Response) {
     const id = req.params.id;
     const foundBlog = blogsRepository.findById(id);
 

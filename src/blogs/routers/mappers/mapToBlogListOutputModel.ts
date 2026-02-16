@@ -1,8 +1,8 @@
 import {WithId} from 'mongodb';
 import {BlogMongoModel} from '../../types/blogMongoModel';
-import {BlogListOutputModel} from '../../types/blogListOutputModel';
+import {BlogOutputModel} from '../../types/blogOutputModel';
 
-export function mapToBlogListOutputModel(blogs: WithId<BlogMongoModel>[]): BlogListOutputModel[] {
+export function mapToBlogListOutputModel(blogs: WithId<BlogMongoModel>[]): BlogOutputModel[] {
     return blogs.map(blog => ({
             id: blog._id.toString(),
             name: blog.name,
