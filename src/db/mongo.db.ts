@@ -1,7 +1,8 @@
 import {Collection, Db, MongoClient} from 'mongodb';
 import {BlogMongoModel} from '../blogs/types/blogMongoModel';
 import {PostMongoModel} from '../posts/types/postMongoModel';
-import {SETTINGS} from '../core/settings/settings';
+import dotenv from 'dotenv'
+dotenv.config()
 
 const BLOG_COLLECTION_NAME = 'blogs';
 const POST_COLLECTION_NAME = 'posts';
@@ -13,7 +14,7 @@ export let postCollection: Collection<PostMongoModel>;
 // Подключения к бд
 export async function runDB(url: string): Promise<void> {
     client = new MongoClient(url);
-    const db: Db = client.db(SETTINGS.DB_NAME);
+    const db: Db = client.db(process.env.DB_NAME);
 
     //Инициализация коллекций
     blogCollection = db.collection<BlogMongoModel>(BLOG_COLLECTION_NAME);

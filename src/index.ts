@@ -1,17 +1,22 @@
 import express from "express";
 import {setupApp} from "./setup-app";
 import {runDB} from './db/mongo.db';
-import {SETTINGS} from './core/settings/settings';
+import dotenv from 'dotenv'
+dotenv.config()
 
 const bootstrap = async () => {
 
     const app = express(); // создание приложения
     setupApp(app);
 
-    await runDB(SETTINGS.MONGO_URL);
+    if (!process.env.MONGO_URL || !process.env.PORT) {
+        throw new Error("❌ MONGO_URL or PORT environment variable is not set");
+    }
 
-    app.listen(SETTINGS.PORT, () => {
-        console.log(`Example app listening on port ${SETTINGS.PORT}`) // запуск приложения
+    await runDB(process.env.MONGO_URL);
+
+    app.listen(process.env.PORT, () => {
+        console.log(`Example app listening on port ${process.env.PORT}`) // запуск приложения
     });
 
     return app;
