@@ -1,6 +1,5 @@
 import {body} from "express-validator";
 
-
 const titleValidation = body('title')
     .isString()
     .withMessage('title should be string')
