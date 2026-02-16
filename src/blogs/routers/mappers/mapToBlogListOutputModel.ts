@@ -2,16 +2,14 @@ import {WithId} from 'mongodb';
 import {BlogMongoModel} from '../../types/blogMongoModel';
 import {BlogListOutputModel} from '../../types/blogListOutputModel';
 
-export function mapToBlogListOutputModel(blogs: WithId<BlogMongoModel>[]): BlogListOutputModel {
-    return {
-        data: blogs.map(blog => ({
-                id: blog._id.toString(),
-                name: blog.name,
-                description: blog.description,
-                websiteUrl: blog.websiteUrl,
-                createdAt: blog.createdAt,
-                isMembership: blog.isMembership
-            })
-        )
-    }
+export function mapToBlogListOutputModel(blogs: WithId<BlogMongoModel>[]): BlogListOutputModel[] {
+    return blogs.map(blog => ({
+            id: blog._id.toString(),
+            name: blog.name,
+            description: blog.description,
+            websiteUrl: blog.websiteUrl,
+            createdAt: blog.createdAt,
+            isMembership: blog.isMembership
+        })
+    )
 }
